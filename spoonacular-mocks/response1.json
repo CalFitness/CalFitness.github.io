@@ -1,0 +1,41 @@
+{
+    "ok": true,
+    "action": "daily_meal_plan",
+    "data": {
+        "meals": [
+            {
+                "id": 638257,
+                "image": "Chicken-Porridge-638257.jpg",
+                "imageType": "jpg",
+                "title": "Chicken Porridge",
+                "readyInMinutes": 45,
+                "servings": 4,
+                "sourceUrl": "https://www.foodista.com/recipe/S6FN8VYN/chicken-porridge"
+            },
+            {
+                "id": 642719,
+                "image": "Fettuccine-With-Bacon-Mushroom-and-Peas-642719.jpg",
+                "imageType": "jpg",
+                "title": "Fettuccine With Bacon Mushroom and Peas",
+                "readyInMinutes": 25,
+                "servings": 4,
+                "sourceUrl": "https://www.foodista.com/recipe/ZW3W47GQ/fettuccine-with-bacon-mushroom-and-peas"
+            },
+            {
+                "id": 653055,
+                "image": "New-Orleans-Red-Beans-and-Rice-with-Andouille-Sausage-653055.jpg",
+                "imageType": "jpg",
+                "title": "New Orleans Red Beans and Rice with Andouille Sausage",
+                "readyInMinutes": 45,
+                "servings": 6,
+                "sourceUrl": "https://www.foodista.com/recipe/J2ZZ6BQR/new-orleans-red-beans-and-rice"
+            }
+        ],
+        "nutrients": {
+            "calories": 2000.02,
+            "protein": 106.42,
+            "fat": 83.04,
+            "carbohydrates": 204.77
+        }
+    }
+}
