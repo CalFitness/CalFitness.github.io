@@ -3,26 +3,30 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Privacy Policy — CaloriesTracker</title>
+  <title>Privacy Policy — CalFitness</title>
   <style>
     body{font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;max-width:780px;margin:40px auto;padding:0 20px;color:#0b1220}
     header{border-bottom:1px solid #e6e9ef;padding-bottom:12px;margin-bottom:18px}
     h1{font-size:28px;margin:8px 0}
     h2{font-size:18px;margin-top:18px}
     p{line-height:1.6;margin:10px 0}
+    li{line-height:1.6;margin:6px 0}
     small{color:#586069}
     a{color:#0969da}
+    table{border-collapse:collapse;width:100%;margin:12px 0}
+    th,td{border:1px solid #e6e9ef;padding:8px 10px;text-align:left;font-size:14px;vertical-align:top}
+    th{background:#f6f8fa}
   </style>
 </head>
 <body>
   <header>
     <h1>Privacy Policy</h1>
-    <p><small>Effective date: July 2, 2026</small></p>
+    <p><small>Effective date: July 17, 2026</small></p>
   </header>
 
   <section>
     <h2>Summary</h2>
-    <p>CaloriesTracker helps users track nutrition, meals and fitness. This Privacy Policy explains what information we collect, why we collect it, how we use it, and your choices. The policy applies to data you provide when using our web and mobile apps.</p>
+    <p>CalFitness helps you track nutrition, meals and fitness. This Privacy Policy explains what information we collect, why we collect it, how we use it, and your choices. It applies to the CalFitness mobile app, the CalFitness website, and the CalFitness integration that lets AI assistants such as ChatGPT and Claude create workout routines and meal plans in your account.</p>
   </section>
 
   <section>
@@ -30,10 +34,11 @@
     <p>We collect the minimum data needed to provide and improve the service. This may include:</p>
     <ul>
       <li><strong>Account information:</strong> email address and profile details if you create an account.</li>
-      <li><strong>Fitness & nutrition data:</strong> data you enter directly in the app, such as weight, activity, calories, and food logs.</li>
-      <li><strong>Device & diagnostic data:</strong> app version, device type, operating system, and crash reports to help us diagnose issues.</li>
+      <li><strong>Fitness &amp; nutrition data:</strong> data you enter directly in the app, such as weight, activity, calories, food logs, workout routines and meal plans.</li>
+      <li><strong>Device &amp; diagnostic data:</strong> app version, device type, operating system, and crash reports to help us diagnose issues.</li>
       <li><strong>Usage data:</strong> anonymous analytics about how the app is used (screens visited, feature usage) which helps improve the product.</li>
-      <li><strong>Local data:</strong> data stored locally in your browser or on-device (e.g., offline storage via Dexie) remains on your device unless you choose to sync it to your account.</li>
+      <li><strong>Local data:</strong> data stored locally in your browser or on-device remains on your device unless you choose to sync it to your account.</li>
+      <li><strong>Integration credentials:</strong> if you connect an AI assistant, we store a one-way hash of the access credential, never the credential itself, along with the name of the connected app and when it was created or revoked.</li>
     </ul>
   </section>
 
@@ -43,8 +48,44 @@
   </section>
 
   <section>
+    <h2>Connected AI assistants</h2>
+    <p>CalFitness can be connected to third-party AI assistants. This is entirely optional and off unless you set it up. There are two ways to connect:</p>
+    <ul>
+      <li><strong>A personal API key</strong> you create in the app under <strong>Settings &rarr; Integrations</strong> and paste into the assistant.</li>
+      <li><strong>Signing in with CalFitness</strong> (OAuth), where the assistant sends you to a CalFitness consent screen naming the app that is asking, and you choose whether to allow it.</li>
+    </ul>
+
+    <p>A connected assistant acts on your behalf, and is limited to the following:</p>
+    <table>
+      <thead>
+        <tr><th>It can</th><th>It cannot</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>
+            Search the CalFitness exercise and food catalogues (this is reference data, not your personal data).<br /><br />
+            Read the list of your workout routines.<br /><br />
+            Create workout routines, workout programs and meal plans in your account.
+          </td>
+          <td>
+            Read your food diary, weight history, body measurements, profile or account settings.<br /><br />
+            Delete or modify anything that already exists in your account.<br /><br />
+            Read or send messages, or access data belonging to any other user.
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p><strong>What the AI provider sees.</strong> When you use a connected assistant, the content of that conversation — including any routine or meal-plan data returned to it by CalFitness — is processed by that assistant's provider (for example OpenAI or Anthropic) under their own privacy policy, not ours. We do not control their retention or model-training practices. Please review their policy before connecting.</p>
+
+    <p><strong>Credentials.</strong> API keys and OAuth tokens are stored only as a SHA-256 hash. We cannot recover or display a credential after it is created, which is why a new key is shown to you exactly once.</p>
+
+    <p><strong>Disconnecting.</strong> API keys can be revoked at any time in <strong>Settings &rarr; Integrations</strong>; revocation takes effect immediately. To end an OAuth connection, disconnect or remove the CalFitness app from within the assistant that you connected, which revokes the token. If you cannot do that, or want to be certain a connection is gone, contact us at the address below and we will revoke it for you.</p>
+  </section>
+
+  <section>
     <h2>Third parties and integrations</h2>
-    <p>We use third-party services to host and process data when you use account features or cloud sync. Examples include Supabase as our backend and hosting provider. We also may use third-party analytics providers.</p>
+    <p>We use third-party services to host and process data when you use account features or cloud sync. These include Supabase as our backend and database provider, Oracle Cloud Infrastructure which hosts the integration server, and third-party analytics and crash-reporting providers. Where you connect an AI assistant, that assistant's provider also processes data, as described above.</p>
   </section>
 
   <section>
@@ -54,7 +95,7 @@
 
   <section>
     <h2>Security</h2>
-    <p>We take reasonable administrative, technical, and physical safeguards to protect data. However, no system is completely secure — please take steps to protect access to your accounts and devices.</p>
+    <p>We take reasonable administrative, technical, and physical safeguards to protect data. Account data is isolated per user at the database level, and integration credentials are stored only as hashes. However, no system is completely secure — please take steps to protect access to your accounts and devices, and only connect AI assistants you trust.</p>
   </section>
 
   <section>
@@ -67,13 +108,15 @@
     <p>You can:</p>
     <ul>
       <li>Request access to, correction of, or deletion of your personal data by contacting us (see below).</li>
+      <li>Delete your account and its data at any time via <a href="/delete-account">/delete-account</a>.</li>
+      <li>Revoke any integration credential in <strong>Settings &rarr; Integrations</strong>.</li>
       <li>Choose to store data only locally on your device and not sync it to our backend.</li>
     </ul>
   </section>
 
   <section>
-    <h2>Data retention & international transfers</h2>
-    <p>We retain data as needed to provide the service and comply with legal obligations. Data stored with our backend provider may be processed and stored in locations outside your country.</p>
+    <h2>Data retention &amp; international transfers</h2>
+    <p>We retain data as needed to provide the service and comply with legal obligations. Revoked integration credentials are retained as hashes so that a revoked credential is never silently reissued or reused. Data stored with our backend provider may be processed and stored in locations outside your country.</p>
   </section>
 
   <section>
@@ -83,11 +126,11 @@
 
   <section>
     <h2>Contact</h2>
-    <p>For privacy questions or requests, contact: <a href="mailto:privacy@caloriestracker.example">privacy@caloriestracker.example</a>. Replace this address with your support or privacy contact before publishing the policy.</p>
+    <p>For privacy questions or requests, contact <a href="mailto:support@calfitness.app">support@calfitness.app</a>.</p>
   </section>
 
   <footer style="margin-top:30px;border-top:1px solid #e6e9ef;padding-top:12px">
-    <small>Privacy Policy — CaloriesTracker • Accessible without authentication at <a href="/privacy-policy">/privacy-policy</a></small>
+    <small>Privacy Policy — CalFitness • Accessible without authentication at <a href="/privacy-policy">/privacy-policy</a></small>
   </footer>
 </body>
 </html>

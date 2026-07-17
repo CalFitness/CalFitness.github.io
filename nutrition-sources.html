@@ -1,0 +1,229 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>How CalFitness Calculates Nutrition — Sources &amp; Methods</title>
+  <meta name="description" content="The formulas, references and food databases behind CalFitness calorie, macro and BMI numbers." />
+  <style>
+    body{font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;max-width:780px;margin:40px auto;padding:0 20px;color:#0b1220}
+    header{border-bottom:1px solid #e6e9ef;padding-bottom:12px;margin-bottom:18px}
+    h1{font-size:28px;margin:8px 0}
+    h2{font-size:18px;margin-top:28px}
+    h3{font-size:15px;margin-top:20px;margin-bottom:6px}
+    p{line-height:1.6;margin:10px 0}
+    li{line-height:1.6;margin:6px 0}
+    small{color:#586069}
+    a{color:#0969da}
+    table{border-collapse:collapse;width:100%;margin:12px 0}
+    th,td{border:1px solid #e6e9ef;padding:8px 10px;text-align:left;font-size:14px;vertical-align:top}
+    th{background:#f6f8fa}
+    code{background:#f6f8fa;border:1px solid #e6e9ef;border-radius:4px;padding:1px 5px;font-size:13px}
+    .formula{background:#f6f8fa;border:1px solid #e6e9ef;border-radius:6px;padding:12px 14px;margin:12px 0;font-size:14px;line-height:1.7;overflow-x:auto}
+    .callout{background:#fff8e6;border:1px solid #f0d58c;border-radius:6px;padding:12px 14px;margin:16px 0}
+    .callout p{margin:6px 0}
+    nav ul{padding-left:18px}
+    footer{border-top:1px solid #e6e9ef;margin-top:32px;padding-top:14px}
+  </style>
+</head>
+<body>
+  <header>
+    <h1>How CalFitness Calculates Nutrition</h1>
+    <p><small>Sources &amp; methods · Last updated July 17, 2026</small></p>
+  </header>
+
+  <div class="callout">
+    <p><strong>CalFitness does not provide medical advice.</strong> Every number in the app is a general estimate produced by the published formulas below, not a clinical measurement or a personalised recommendation. Estimates can be wrong for any individual. Consult a qualified health professional before making significant changes to your diet, exercise or medication — especially if you are pregnant, under 18, or managing a medical condition such as diabetes or an eating disorder.</p>
+  </div>
+
+  <section>
+    <h2>What this page covers</h2>
+    <nav>
+      <ul>
+        <li><a href="#rmr">Resting metabolic rate (RMR)</a></li>
+        <li><a href="#maintenance">Activity factor and maintenance calories</a></li>
+        <li><a href="#target">Your daily calorie target</a></li>
+        <li><a href="#macros">Protein, carbohydrate and fat targets</a></li>
+        <li><a href="#fiber">Fiber target</a></li>
+        <li><a href="#bmi">BMI and the suggested starting goal</a></li>
+        <li><a href="#food-data">Where food calorie and macro data comes from</a></li>
+        <li><a href="#limits">Known limits and how to correct them</a></li>
+      </ul>
+    </nav>
+  </section>
+
+  <section id="rmr">
+    <h2>Resting metabolic rate (RMR)</h2>
+    <p>CalFitness estimates the energy you burn at rest using the <strong>Mifflin-St Jeor equation</strong>, from your sex, weight, height and age:</p>
+    <div class="formula">
+      RMR = (10 × weight in kg) + (6.25 × height in cm) − (5 × age in years) + <em>s</em><br />
+      where <em>s</em> = <code>+5</code> for male, <code>−161</code> for female, <code>−78</code> when sex is unspecified or non-binary
+    </div>
+    <p>Where measured RMR is unavailable, Endotext cites Mifflin-St Jeor as the most accurate practical estimate for many adults, while noting that error for any individual remains possible.</p>
+    <p><strong>Source:</strong> <a href="https://www.ncbi.nlm.nih.gov/books/NBK278991/" rel="noopener">Endotext — Obesity: Evaluation and Treatment, NCBI Bookshelf</a></p>
+    <p><small>The <code>−78</code> value used when sex is unspecified is a midpoint between the published male and female constants. It is a CalFitness convention, not part of the original equation.</small></p>
+  </section>
+
+  <section id="maintenance">
+    <h2>Activity factor and maintenance calories</h2>
+    <p>Your RMR is multiplied by a physical activity factor to estimate the calories needed to maintain your current weight. Endotext recommends multiplying RMR by an appropriate activity factor for maintenance.</p>
+    <div class="formula">Maintenance calories = RMR × activity factor</div>
+    <table>
+      <thead>
+        <tr><th>Activity level</th><th>Male</th><th>Female</th><th>Unspecified</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Sedentary</td><td>1.00</td><td>1.00</td><td>1.000</td></tr>
+        <tr><td>Low active</td><td>1.11</td><td>1.12</td><td>1.115</td></tr>
+        <tr><td>Active</td><td>1.25</td><td>1.27</td><td>1.260</td></tr>
+        <tr><td>Very active</td><td>1.48</td><td>1.45</td><td>1.465</td></tr>
+      </tbody>
+    </table>
+    <p><strong>Source:</strong> <a href="https://www.ncbi.nlm.nih.gov/books/NBK278991/" rel="noopener">Endotext — Obesity: Evaluation and Treatment, NCBI Bookshelf</a></p>
+  </section>
+
+  <section id="target">
+    <h2>Your daily calorie target</h2>
+    <p>The daily target adjusts maintenance calories according to your selected goal:</p>
+    <table>
+      <thead>
+        <tr><th>Goal</th><th>Adjustment</th><th>Basis</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Lose weight</td><td><code>−500 kcal/day</code></td><td>Endotext describes a calculated energy deficit for weight loss; 500 kcal/day is a common starting deficit.</td></tr>
+        <tr><td>Maintain</td><td><code>0 kcal</code></td><td>Maintenance calories as estimated above.</td></tr>
+        <tr><td>Gain muscle</td><td><code>+10% of maintenance</code></td><td>A deliberately conservative CalFitness heuristic, not a figure taken from a specific guideline. It should be adjusted using your real weight trend.</td></tr>
+      </tbody>
+    </table>
+    <p>If you set a custom percentage adjustment in the app, it replaces the defaults above and is clamped to <code>±30%</code> of maintenance. Every target is then floored at <strong>1,200 kcal/day</strong> and rounded to the nearest whole calorie.</p>
+    <div class="formula">Daily target = round( max( 1200, maintenance + adjustment ) )</div>
+    <p><strong>Source:</strong> <a href="https://www.ncbi.nlm.nih.gov/books/NBK278991/" rel="noopener">Endotext — Obesity: Evaluation and Treatment, NCBI Bookshelf</a></p>
+    <div class="callout">
+      <p>The 1,200 kcal floor is a safety guard in the software, not a recommendation that 1,200 kcal is appropriate for you. Very-low-calorie intakes should only be undertaken with medical supervision.</p>
+    </div>
+  </section>
+
+  <section id="macros">
+    <h2>Protein, carbohydrate and fat targets</h2>
+    <p>Macro targets are derived from your calorie target using a percentage split, converted to grams at <strong>4 kcal/g</strong> for protein and carbohydrate and <strong>9 kcal/g</strong> for fat.</p>
+    <div class="formula">
+      Protein (g) = (target kcal × protein %) ÷ 4<br />
+      Carbohydrate (g) = (target kcal × carb %) ÷ 4<br />
+      Fat (g) = (target kcal × fat %) ÷ 9
+    </div>
+    <p>The default split depends on your goal:</p>
+    <table>
+      <thead>
+        <tr><th>Goal</th><th>Protein</th><th>Carbohydrate</th><th>Fat</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Lose weight</td><td>40%</td><td>30%</td><td>30%</td></tr>
+        <tr><td>Maintain</td><td>30%</td><td>40%</td><td>30%</td></tr>
+        <tr><td>Gain muscle</td><td>30%</td><td>45%</td><td>25%</td></tr>
+      </tbody>
+    </table>
+    <p>The <em>Dietary Guidelines for Americans</em> describe Acceptable Macronutrient Distribution Ranges (AMDR) of <strong>protein 10–35%</strong>, <strong>carbohydrate 45–65%</strong> and <strong>fat 20–35%</strong> of calories.</p>
+    <div class="callout">
+      <p><strong>Where CalFitness departs from the Dietary Guidelines:</strong> the weight-loss and muscle-gain presets set protein higher, and carbohydrate lower, than the AMDR ranges. This is a common sports-nutrition practice, <em>not</em> a Dietary Guidelines recommendation. Every split is fully editable in the app, and you can set one that sits inside the AMDR ranges if you prefer.</p>
+    </div>
+    <p><strong>Source:</strong> <a href="https://odphp.health.gov/our-work/nutrition-physical-activity/dietary-guidelines" rel="noopener">Dietary Guidelines for Americans — ODPHP, U.S. Department of Health and Human Services</a></p>
+  </section>
+
+  <section id="fiber">
+    <h2>Fiber target</h2>
+    <p>The daily fiber target follows the Dietary Guidelines recommendation of <strong>14 g of dietary fiber per 1,000 kcal</strong> consumed.</p>
+    <div class="formula">Fiber (g) = (target kcal ÷ 1000) × 14</div>
+    <p><strong>Source:</strong> <a href="https://odphp.health.gov/our-work/nutrition-physical-activity/dietary-guidelines" rel="noopener">Dietary Guidelines for Americans — ODPHP</a></p>
+  </section>
+
+  <section id="bmi">
+    <h2>BMI and the suggested starting goal</h2>
+    <p>During onboarding, CalFitness computes body mass index and uses the CDC category to <em>suggest</em> a starting goal. The suggestion is only a default — you can pick any goal.</p>
+    <div class="formula">BMI = weight in kg ÷ (height in m)²</div>
+    <table>
+      <thead>
+        <tr><th>CDC adult category</th><th>BMI</th><th>Goal CalFitness suggests</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Underweight</td><td>Below 18.5</td><td>Gain</td></tr>
+        <tr><td>Healthy weight</td><td>18.5 to below 25</td><td>Maintain</td></tr>
+        <tr><td>Overweight</td><td>25 to below 30</td><td>Lose</td></tr>
+        <tr><td>Obesity</td><td>30 or greater</td><td>Lose</td></tr>
+      </tbody>
+    </table>
+    <p>The CDC describes BMI as a <strong>screening measure, not a diagnosis</strong>, that should be considered alongside other health factors. Body composition, health history, waist measurement and clinician guidance can all change what goal is appropriate for you.</p>
+    <p><strong>Source:</strong> <a href="https://www.cdc.gov/bmi/adult-calculator/bmi-categories.html" rel="noopener">Adult BMI Categories — Centers for Disease Control and Prevention</a></p>
+  </section>
+
+  <section id="food-data">
+    <h2>Where food calorie and macro data comes from</h2>
+    <p>Nutrition values for foods in CalFitness come from the published databases below. When more than one database describes the same food, CalFitness prefers the higher-quality source in the order shown.</p>
+    <table>
+      <thead>
+        <tr><th>Source</th><th>What it covers</th><th>Publisher &amp; licence</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>IFCT 2017</strong><br /><small>Preferred first</small></td>
+          <td>Indian Food Composition Tables — laboratory-analysed composition for Indian ingredients, per 100 g edible portion.</td>
+          <td><a href="https://www.nin.res.in/" rel="noopener">ICMR — National Institute of Nutrition, India</a></td>
+        </tr>
+        <tr>
+          <td><strong>USDA FoodData Central</strong></td>
+          <td>Generic and standard-reference foods analysed or compiled by the USDA.</td>
+          <td><a href="https://fdc.nal.usda.gov/" rel="noopener">U.S. Department of Agriculture</a> — public domain</td>
+        </tr>
+        <tr>
+          <td><strong>INDB</strong></td>
+          <td>Indian Nutrient Databank — 1,014 commonly-consumed Indian cooked dishes, per 100 g edible portion.</td>
+          <td><a href="https://github.com/lindsayjaacks/Indian-Nutrient-Databank-INDB-" rel="noopener">Indian Nutrient Databank (Jaacks et al.)</a></td>
+        </tr>
+        <tr>
+          <td><strong>Recipes</strong><br /><small>Calculated, not measured</small></td>
+          <td>Indian dishes whose nutrition is <em>computed</em> by resolving each ingredient line to an IFCT/USDA/INDB food and summing the resolved ingredients. Recipe text from Archana's Kitchen Indian Food Dataset.</td>
+          <td>Nutrition derived by CalFitness from the sources above</td>
+        </tr>
+        <tr>
+          <td><strong>Open Food Facts</strong></td>
+          <td>Crowd-sourced packaged and branded products, largely transcribed from package labels.</td>
+          <td><a href="https://world.openfoodfacts.org/" rel="noopener">Open Food Facts</a> — data licensed under <a href="https://opendatacommons.org/licenses/odbl/1-0/" rel="noopener">ODbL v1.0</a></td>
+        </tr>
+        <tr>
+          <td><strong>USDA Branded Foods</strong></td>
+          <td>Manufacturer-supplied label data for branded products.</td>
+          <td><a href="https://fdc.nal.usda.gov/" rel="noopener">U.S. Department of Agriculture</a> — label data supplied by manufacturers</td>
+        </tr>
+        <tr>
+          <td><strong>Foods you create</strong></td>
+          <td>Foods, recipes and combos you enter yourself, visible only to you unless you publish them.</td>
+          <td>Entered by you</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3>Attribution</h3>
+    <p>Food data from Open Food Facts is made available under the <a href="https://opendatacommons.org/licenses/odbl/1-0/" rel="noopener">Open Database License (ODbL) v1.0</a>. Individual contents of the database are available under the Database Contents License. USDA FoodData Central data is in the public domain.</p>
+
+    <h3>How confident is a given food?</h3>
+    <p>Each food carries a confidence level reflecting how it was obtained. Laboratory-analysed composition tables (IFCT, USDA) rank highest; label transcriptions and crowd-sourced entries rank lower; calculated recipes are only published when resolved ingredients account for a sufficient share of the dish's mass, so a dish whose main ingredient could not be identified is never published.</p>
+  </section>
+
+  <section id="limits">
+    <h2>Known limits and how to correct them</h2>
+    <ul>
+      <li><strong>Predictive equations carry individual error.</strong> Mifflin-St Jeor estimates a population average. Your true RMR can differ meaningfully, and no equation can detect that from height, weight, age and sex alone.</li>
+      <li><strong>Activity factors are self-reported.</strong> They depend on you picking the level that matches your real week.</li>
+      <li><strong>Label and crowd-sourced values vary.</strong> Packaged-food data reflects what a manufacturer printed or a contributor transcribed, and can be out of date or wrong.</li>
+      <li><strong>Cooked-dish values are averages.</strong> Composition tables and calculated recipes describe a typical preparation, not the specific portion you ate.</li>
+      <li><strong>The best correction is your own trend data.</strong> If your weight is not moving as the estimate predicts after a few consistent weeks, adjust your target in the app rather than trusting the initial estimate.</li>
+    </ul>
+  </section>
+
+  <footer>
+    <p><small>Questions about anything on this page, or think a number is wrong? Email <a href="mailto:anil.gangadharaiah@gmail.com?subject=CalFitness%20nutrition%20sources">anil.gangadharaiah@gmail.com</a>.</small></p>
+    <p><small><a href="/support">Support</a> · <a href="/privacy-policy.html">Privacy Policy</a></small></p>
+  </footer>
+</body>
+</html>
+</content>
+</invoke>
