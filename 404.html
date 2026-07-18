@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Open in CalFitness</title>
+  <!--
+    Desktop / no-app fallback for universal links.
+
+    calfitness.app is a HashRouter SPA on GitHub Pages, so a real (non-hash) path
+    like /workouts/programs/<id> has no matching file and GitHub Pages serves this
+    404.html. On a phone with the app installed, iOS/Android intercept the link
+    BEFORE the request reaches the web server (see apple-app-site-association /
+    assetlinks.json), so this page only renders when there is no app to open —
+    typically desktop, or a device without the app. It offers an explicit
+    "Open in app" attempt plus store links, instead of a bare 404.
+
+    Any other unknown path is bounced to the SPA root so the app still loads.
+  -->
+  <style>
+    :root{
+      --bg:#f6f8fb; --card:#ffffff; --text:#0b1220; --muted:#586069;
+      --border:#e6e9ef; --accent:#0969da; --accent-text:#ffffff;
+    }
+    @media (prefers-color-scheme: dark){
+      :root{
+        --bg:#0b1220; --card:#131c2b; --text:#e8edf5; --muted:#9aa7b8;
+        --border:#233043; --accent:#4c9dff; --accent-text:#08111f;
+      }
+    }
+    *{box-sizing:border-box}
+    body{
+      font-family:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+      margin:0;min-height:100vh;display:flex;align-items:center;justify-content:center;
+      background:var(--bg);color:var(--text);padding:24px;
+    }
+    .card{
+      background:var(--card);border:1px solid var(--border);border-radius:16px;
+      max-width:440px;width:100%;padding:32px 28px;text-align:center;
+      box-shadow:0 10px 40px rgba(0,0,0,.08);
+    }
+    .logo{
+      width:56px;height:56px;border-radius:14px;margin:0 auto 18px;
+      display:flex;align-items:center;justify-content:center;
+      background:var(--accent);color:var(--accent-text);font-size:28px;font-weight:800;
+    }
+    h1{font-size:22px;margin:0 0 8px}
+    p{line-height:1.6;margin:8px 0;color:var(--muted)}
+    .btn{
+      display:block;width:100%;padding:13px 16px;margin-top:16px;border-radius:10px;
+      font-size:15px;font-weight:600;text-decoration:none;border:1px solid var(--border);
+      color:var(--text);background:transparent;cursor:pointer;
+    }
+    .btn.primary{background:var(--accent);color:var(--accent-text);border-color:var(--accent)}
+    .stores{display:flex;gap:10px;margin-top:16px}
+    .stores .btn{margin-top:0;flex:1}
+    .hint{font-size:13px;margin-top:20px}
+    a.plain{color:var(--accent)}
+    .hidden{display:none}
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="logo">CF</div>
+
+    <div id="program-view" class="hidden">
+      <h1 id="program-title">Open in CalFitness</h1>
+      <p id="program-sub">This link opens your plan in the CalFitness app.</p>
+      <a id="open-app" class="btn primary" href="#">Open in the app</a>
+      <div class="stores">
+        <a class="btn" id="ios-store" href="https://apps.apple.com/app/id6779969522">App&nbsp;Store</a>
+        <a class="btn" id="play-store" href="https://play.google.com/store/apps/details?id=com.anilg11h.calfitness">Google&nbsp;Play</a>
+      </div>
+      <p class="hint">Don't have the app? Install it, then tap the link again on your phone.</p>
+    </div>
+
+    <div id="notfound-view" class="hidden">
+      <h1>Page not found</h1>
+      <p>The page you're looking for isn't here.</p>
+      <a class="btn primary" href="/">Go to CalFitness</a>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      var path = window.location.pathname || '/';
+      // Claimed universal-link paths (kept in sync with app.json intentFilters
+      // and apple-app-site-association): /workouts/programs/<id>, /meals/programs/<id>.
+      var m = path.match(/^\/(workouts|meals)\/programs\/([^\/?#]+)/);
+
+      if (m) {
+        var kind = m[1]; // 'workouts' | 'meals'
+        var id = m[2];
+        // Same path via the custom scheme — the app registers calfitness:// and
+        // its router resolves these paths (app/workouts/programs/[id], app/meals/programs/[id]).
+        var appUrl = 'calfitness://' + kind + '/programs/' + id;
+
+        var title = document.getElementById('program-title');
+        var sub = document.getElementById('program-sub');
+        if (kind === 'meals') {
+          title.textContent = 'Open your meal plan';
+          sub.textContent = 'This link opens your meal plan in the CalFitness app.';
+        } else {
+          title.textContent = 'Open your workout program';
+          sub.textContent = 'This link opens your workout program in the CalFitness app.';
+        }
+
+        var openBtn = document.getElementById('open-app');
+        openBtn.setAttribute('href', appUrl);
+
+        document.getElementById('program-view').classList.remove('hidden');
+      } else {
+        // Any other unknown path: fall back to the SPA so the site still loads,
+        // rather than showing a dead end. Guard against a redirect loop on '/'.
+        if (path !== '/' && path !== '/index.html') {
+          window.location.replace('/');
+          return;
+        }
+        document.getElementById('notfound-view').classList.remove('hidden');
+      }
+    })();
+  </script>
+</body>
+</html>

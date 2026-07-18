@@ -5,8 +5,8 @@
       "namespace": "android_app",
       "package_name": "com.anilg11h.calfitness",
       "sha256_cert_fingerprints": [
-        "REPLACE_WITH_PLAY_APP_SIGNING_SHA256",
-        "REPLACE_WITH_UPLOAD_KEY_SHA256_OPTIONAL"
+        "E9:D6:07:13:F2:0B:FD:A2:54:3D:A7:05:7D:BE:F4:95:BE:2F:1E:06:3A:9A:A9:2E:FA:F8:D8:53:5A:FC:C9:5B",
+        "61:8D:BC:1A:36:50:98:77:74:97:8F:41:4C:23:DD:CE:A4:00:56:5B:9C:C5:2F:F3:0B:D0:34:8D:C3:6A:C8:05"
       ]
     }
   }
