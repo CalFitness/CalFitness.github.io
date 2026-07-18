@@ -1,0 +1,14 @@
+{
+  "applinks": {
+    "apps": [],
+    "details": [
+      {
+        "appIDs": ["2SFF9938JL.com.anilg11h.calfitness"],
+        "components": [
+          { "/": "/workouts/programs/*", "comment": "Open a workout program in the app" },
+          { "/": "/meals/programs/*", "comment": "Open a meal plan in the app" }
+        ]
+      }
+    ]
+  }
+}
