@@ -109,6 +109,23 @@
         openBtn.setAttribute('href', appUrl);
 
         document.getElementById('program-view').classList.remove('hidden');
+      } else if (/^\/(c|pact|team)\/[^\/?#]+/.test(path)) {
+        // Shared cards (/c/<token>), pact invites (/pact/<code>) and challenge
+        // group invites (/team/<code>).
+        //
+        // These are REAL paths, on purpose: a link crawler cannot see anything
+        // after a '#', so a hash URL can never carry a preview. But this site
+        // is a HashRouter SPA on GitHub Pages, so the path has no file and
+        // lands here — and the generic branch below would bounce it to '/' and
+        // throw the token away. That is exactly what used to happen: every
+        // shared card link opened the home page instead of the card.
+        //
+        // Hand the path to the hash router instead. Every reader
+        // (getBrowserCardShareToken, getBrowserPactInviteCode,
+        // getBrowserChallengeGroupInviteCode) already checks the hash after the
+        // pathname, so the page resolves with no app change.
+        window.location.replace('/#' + path + (window.location.search || ''));
+        return;
       } else {
         // Any other unknown path: fall back to the SPA so the site still loads,
         // rather than showing a dead end. Guard against a redirect loop on '/'.

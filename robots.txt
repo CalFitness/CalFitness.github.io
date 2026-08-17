@@ -1,0 +1,6 @@
+# The one in src/static/ is published at /static/robots.txt, which no crawler
+# reads. This is the file that lands at the site root.
+User-agent: *
+Allow: /
+
+Sitemap: https://calfitness.app/sitemap.xml
