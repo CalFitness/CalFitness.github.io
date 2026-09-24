@@ -109,9 +109,10 @@
         openBtn.setAttribute('href', appUrl);
 
         document.getElementById('program-view').classList.remove('hidden');
-      } else if (/^\/(c|pact|team)\/[^\/?#]+/.test(path)) {
-        // Shared cards (/c/<token>), pact invites (/pact/<code>) and challenge
-        // group invites (/team/<code>).
+      } else if (/^\/(c|pact|team)\/[^\/?#]+/.test(path) || path === '/download') {
+        // Shared cards (/c/<token>), pact invites (/pact/<code>), challenge
+        // group invites (/team/<code>) and the QR/share "get the app" link
+        // (/download, no token).
         //
         // These are REAL paths, on purpose: a link crawler cannot see anything
         // after a '#', so a hash URL can never carry a preview. But this site
@@ -122,8 +123,9 @@
         //
         // Hand the path to the hash router instead. Every reader
         // (getBrowserCardShareToken, getBrowserPactInviteCode,
-        // getBrowserChallengeGroupInviteCode) already checks the hash after the
-        // pathname, so the page resolves with no app change.
+        // getBrowserChallengeGroupInviteCode, App's isDownloadPath) already
+        // checks the hash after the pathname, so the page resolves with no
+        // app change.
         window.location.replace('/#' + path + (window.location.search || ''));
         return;
       } else {

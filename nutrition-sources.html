@@ -105,12 +105,33 @@
 
   <section id="macros">
     <h2>Protein, carbohydrate and fat targets</h2>
-    <p>Macro targets are derived from your calorie target using a percentage split, converted to grams at <strong>4 kcal/g</strong> for protein and carbohydrate and <strong>9 kcal/g</strong> for fat.</p>
+
+    <h3>Protein is scaled to your body, not to your calories</h3>
+    <p>Protein is worked out first, from your body mass, and the other two macros divide what is left. It is set as a <strong>floor</strong>: if you choose a macro split that asks for more protein, you get more; a split that asks for less does not lower it.</p>
     <div class="formula">
-      Protein (g) = (target kcal × protein %) ÷ 4<br />
-      Carbohydrate (g) = (target kcal × carb %) ÷ 4<br />
-      Fat (g) = (target kcal × fat %) ÷ 9
+      Protein (g) = body weight (kg) × multiplier<br />
+      …or, when a body-fat measurement is available:<br />
+      Protein (g) = lean body mass (kg) × multiplier
     </div>
+    <p>The multiplier rises with the depth of your calorie deficit, and — where lean body mass is known — with how lean you already are:</p>
+    <table>
+      <thead>
+        <tr><th>Situation</th><th>Per kg body weight</th><th>Per kg lean mass</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Maintaining or gaining</td><td>1.6 g</td><td>2.0 g</td></tr>
+        <tr><td>Mild deficit</td><td>1.8 g</td><td>2.4 g</td></tr>
+        <tr><td>Deficit of 25% or more</td><td>2.4 g</td><td>3.0 g</td></tr>
+        <tr><td>Same, and already lean</td><td>—</td><td>3.3 g (max 4.0)</td></tr>
+      </tbody>
+    </table>
+    <div class="callout">
+      <p><strong>Why it works this way.</strong> Protein used to be a fixed percentage of your calorie target. That made the protein target fall whenever the calorie target fell — so choosing a faster rate of loss <em>reduced</em> your protein, and it kept reducing over the course of a diet as you lost weight. The evidence points the other way: protein requirements rise as a calorie deficit deepens and as body fat drops, because there is less stored energy available to spare muscle tissue. Anchoring protein to body mass fixes that direction.</p>
+    </div>
+    <p><strong>Sources:</strong> <a href="https://jissn.biomedcentral.com/articles/10.1186/s12970-017-0177-8" rel="noopener">International Society of Sports Nutrition position stand: protein and exercise (Jäger et al., 2017)</a> — 1.4–2.0 g/kg/day for active people, with higher intakes indicated in a hypocaloric state to preserve lean mass. Helms et al. (2014), <em>International Journal of Sport Nutrition and Exercise Metabolism</em> 24(2), 127–138 — 2.3–3.1 g/kg of fat-free mass for energy-restricted, resistance-trained people.</p>
+
+    <h3>Carbohydrate and fat</h3>
+    <p>Whatever protein leaves is divided between carbohydrate and fat in the ratio your split specifies, converted to grams at <strong>4 kcal/g</strong> for carbohydrate and <strong>9 kcal/g</strong> for fat. At least <strong>20 g of fat per day</strong> is always reserved: a very low fat intake during rapid weight loss is associated with gallstone formation, because bile that is never called for sits and thickens.</p>
     <p>The default split depends on your goal:</p>
     <table>
       <thead>
@@ -122,6 +143,7 @@
         <tr><td>Gain muscle</td><td>30%</td><td>45%</td><td>25%</td></tr>
       </tbody>
     </table>
+    <p>The protein column of these defaults is a starting suggestion for the editable split; the body-mass floor above is what actually sets your protein target unless you raise it yourself.</p>
     <p>The <em>Dietary Guidelines for Americans</em> describe Acceptable Macronutrient Distribution Ranges (AMDR) of <strong>protein 10–35%</strong>, <strong>carbohydrate 45–65%</strong> and <strong>fat 20–35%</strong> of calories.</p>
     <div class="callout">
       <p><strong>Where CalFitness departs from the Dietary Guidelines:</strong> the weight-loss and muscle-gain presets set protein higher, and carbohydrate lower, than the AMDR ranges. This is a common sports-nutrition practice, <em>not</em> a Dietary Guidelines recommendation. Every split is fully editable in the app, and you can set one that sits inside the AMDR ranges if you prefer.</p>
@@ -131,8 +153,9 @@
 
   <section id="fiber">
     <h2>Fiber target</h2>
-    <p>The daily fiber target follows the Dietary Guidelines recommendation of <strong>14 g of dietary fiber per 1,000 kcal</strong> consumed.</p>
-    <div class="formula">Fiber (g) = (target kcal ÷ 1000) × 14</div>
+    <p>The daily fiber target follows the Dietary Guidelines recommendation of <strong>14 g of dietary fiber per 1,000 kcal</strong> consumed, then held within the <strong>25–35 g per day</strong> range commonly recommended for adults.</p>
+    <div class="formula">Fiber (g) = (target kcal ÷ 1000) × 14, held between 25 g and 35 g</div>
+    <p>The floor matters on a low calorie target. The per-1,000-kcal rule alone would ask for 20 g at a 1,400 kcal target and less again as the target falls — but eating less food is the situation in which fiber is <em>hardest</em> to reach and most useful, both for regularity and for feeling full.</p>
     <p><strong>Source:</strong> <a href="https://odphp.health.gov/our-work/nutrition-physical-activity/dietary-guidelines" rel="noopener">Dietary Guidelines for Americans — ODPHP</a></p>
   </section>
 
